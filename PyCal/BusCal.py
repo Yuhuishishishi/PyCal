@@ -23,10 +23,8 @@ def week_days_between(date1, date2):
 
     # deviate date1 to the nearest sunday
     first_sun_after_date1 = date1 + timedelta(7 - d1)
-    print first_sun_after_date1
     # deviate date2 to the nearest pasising Monday
     last_mon_before_date2 = date2 - timedelta(d2 - 1)
-    print last_mon_before_date2
 
     # compute the number of weeks between first_sun_after_date1 and last_mon_before_date2
     delta = last_mon_before_date2 - first_sun_after_date1
@@ -36,8 +34,3 @@ def week_days_between(date1, date2):
     num_weekdays += d2 - 1
     return num_weekdays - 1
 
-
-date1 = datetime.date(2016, 2, 15)
-date2 = datetime.date(2016, 2, 23)
-
-print week_days_between(date1, date2)

@@ -10,21 +10,45 @@ class FixedHoliday(Holiday):
     """
     The holidays that are observed on a fixed given day each year
     """
-
-    def __init__(self, month, day):
+    def __init__(self, month, day, name=""):
         self.month = month
         self.day = day
 
     def observe_in_year(self, year):
-        return datetime.date(year, self.month, self.day)
+        candidate = datetime.date(year, self.month, self.day)
+        # if it's a Sat., the move it to the preceding Friday
+        # if it's Sun. then move it to the following Monday
+        if candidate.weekday() == 5:
+            candidate -= datetime.timedelta(1)
+        elif candidate.weekday() == 6:
+            candidate += datetime.timedelta(1)
+        return candidate
 
 
-class FirstDayOfSomethingHoliday(Holiday):
-    def __init__(self, weekday, month, order):
+class FloatingHoliday(Holiday):
+    """
+    The holidays that are floating from year to year
+    """
+    def __init__(self, ordinal, weekday, month, name=""):
+        self.orginal = ordinal
         self.weekday = weekday
         self.month = month
-        self.order = order
 
     def observe_in_year(self, year):
-        # first day in the month
-        first_day_of_month = datetime.date(year, self.month, 1)
+        ordinal = self.ordinal
+        # get the first day in the month
+        first_day_in_month = datetime.date(day=1, month=self.month, year=year)
+        # deviate to the first desired weekday
+        if first_day_in_month.weekday()<self.weekday:
+            first_desired_weekday_in_month = first_day_in_month + datetime.timedelta(self.weekday - first_day_in_month.weekday())
+        else:
+            # to the next week
+            first_desired_weekday_in_month = first_day_in_month + datetime.timedelta(weeks=1, days=self.weekday - first_day_in_month.weekday())
+            ordinal -= 1
+
+        # plus the ordinal
+        candidate = first_desired_weekday_in_month + datetime.timedelta(weeks=max(0, ordinal-1))
+        return candidate
+
+
+
