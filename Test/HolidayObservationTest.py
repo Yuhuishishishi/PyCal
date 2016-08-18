@@ -25,6 +25,48 @@ class TestHolidayObservation(unittest.TestCase):
 		h = day.observe_in_year(2016)
 		self.assertEqual(h, datetime.date(day=29, month=7, year=2016))
 
+	def test_floating_ob_case1(self):
+		from PyCal import HolidayParser
+
+		day = HolidayParser.FloatingHoliday(ordinal=1, weekday=HolidayParser.Holiday.WED, 
+			month=8)
+		h = day.observe_in_year(2016)
+		self.assertEqual(h, datetime.date(day=3, month=8, year=2016))
+
+	def test_floating_ob_case1a(self):
+		from PyCal import HolidayParser
+
+		day = HolidayParser.FloatingHoliday(ordinal=3, weekday=HolidayParser.Holiday.WED, 
+			month=8)
+		h = day.observe_in_year(2016)
+		self.assertEqual(h, datetime.date(day=17, month=8, year=2016))
+
+	def test_floating_ob_case2(self):
+		from PyCal import HolidayParser
+
+		day = HolidayParser.FloatingHoliday(ordinal=1, weekday=HolidayParser.Holiday.WED, 
+			month=7)
+		h = day.observe_in_year(2016)
+		self.assertEqual(h, datetime.date(day=6, month=7, year=2016))
+
+	def test_floating_ob_case3(self):
+		from PyCal import HolidayParser
+
+		day = HolidayParser.FloatingHoliday(ordinal=1, weekday=HolidayParser.Holiday.FRI, 
+			month=7)
+		h = day.observe_in_year(2016)
+		self.assertEqual(h, datetime.date(day=1, month=7, year=2016))
+
+	def test_floating_ob_case3(self):
+		from PyCal import HolidayParser
+
+		day = HolidayParser.FloatingHoliday(ordinal=3, weekday=HolidayParser.Holiday.FRI, 
+			month=7)
+		h = day.observe_in_year(2016)
+		self.assertEqual(h, datetime.date(day=15, month=7, year=2016))
+
+		
+
 
 if __name__ == '__main__':
 	unittest.main()
