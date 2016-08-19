@@ -17,6 +17,7 @@ class FixedHoliday(Holiday):
     def __init__(self, month, day, name=""):
         self.month = month
         self.day = day
+        self.name = name
 
     def observe_in_year(self, year):
         candidate = datetime.date(year, self.month, self.day)
@@ -38,6 +39,7 @@ class FloatingHoliday(Holiday):
         self.ordinal = ordinal
         self.weekday = weekday
         self.month = month
+        self.name = name
 
     def observe_in_year(self, year):
         if self.ordinal < 0:
@@ -52,7 +54,7 @@ class FloatingHoliday(Holiday):
         else:
             # to the next week
             first_desired_weekday_in_month = first_day_in_month + datetime.timedelta(weeks=1, days=self.weekday - first_day_in_month.weekday())
-            ordinal -= 1
+            # ordinal -= 1
 
         # plus the ordinal
         candidate = first_desired_weekday_in_month + datetime.timedelta(weeks=max(0, ordinal-1))
@@ -61,17 +63,19 @@ class FloatingHoliday(Holiday):
     def _observe_in_year_backward(self, year):
         ordinal = self.ordinal
         # assume ordinal is negative
-        ,num_days_in_month = calendar.monthrange(year, self.month)
+        _,num_days_in_month = calendar.monthrange(year, self.month)
         last_day_in_month = datetime.date(year, self.month, num_days_in_month)
         if last_day_in_month.weekday() >= self.weekday:
             last_desired_weekday_in_month = last_day_in_month - datetime.timedelta(days=last_day_in_month.weekday()-self.weekday)
         else:
             # deviate to the previous week
             last_desired_weekday_in_month = last_day_in_month + datetime.timedelta(weeks=-1, days=self.weekday - last_day_in_month.weekday())
-            ordinal += 1
+            # ordinal += 1
 
         candidate = last_desired_weekday_in_month + datetime.timedelta(weeks=min(0, ordinal+1))
         return candidate
+
+
 
 
 

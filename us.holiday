@@ -1,0 +1,57 @@
+{"holidays": [
+	{
+		"name": "New Year's Day",
+		"type": "fixed",
+		"day": 1,
+		"month": 1
+	},
+	{
+		"name": "Independence Day",
+		"type": "fixed",
+		"day": 4,
+		"month": 7
+	},
+	{
+		"name": "Veterans Day",
+		"type": "fixed",
+		"day": 11,
+		"month": 11
+	},
+	{
+		"name": "Christmas Day",
+		"type": "fixed",
+		"day": 25,
+		"month": 12
+	},
+
+	{
+		"name": "MLK",
+		"type": "floating",
+		"ordinal": 3,
+		"weekday": 0,
+		"month": 1
+	},
+	{
+		"name": "Memorial Day",
+		"type": "floating",
+		"ordinal": -1,
+		"weekday": 0,
+		"month": 5
+	},
+	{
+		"name": "Labor Day",
+		"type": "floating",
+		"ordinal": 1,
+		"weekday": 0,
+		"month": 9
+	},
+	{
+		"name": "Columbus Day",
+		"type": "floating",
+		"ordinal": 2,
+		"weekday": 0,
+		"month": 10
+	}
+
+]
+}
